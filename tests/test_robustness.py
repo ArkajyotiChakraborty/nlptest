@@ -1,7 +1,7 @@
 import unittest
 
 from nlptest.transform.robustness import *
-from nlptest.transform.utils import A2B_DICT
+from nlptest.transform.utils import A2B_DICT, dyslexia_map
 from nlptest.utils.custom_types import SequenceClassificationSample
 
 
@@ -131,4 +131,5 @@ class RobustnessTestCase(unittest.TestCase):
         self.assertEqual(
             [len(sample.transformations) for sample in transformed_samples],
             [0, 1]
-        )
+        ) 
+

@@ -19,7 +19,8 @@ DEFAULT_PERTURBATIONS = [
     "swap_entities",
     "replace_to_male_pronouns",
     "replace_to_female_pronouns",
-    "replace_to_neutral_pronouns"
+    "replace_to_neutral_pronouns", 
+    "dyslexia_word_swap"
 ]
 
 PERTURB_CLASS_MAP = {
@@ -36,7 +37,8 @@ PERTURB_CLASS_MAP = {
     "swap_entities": 'SwapEntities',
     "replace_to_male_pronouns": "GenderPronounBias",
     "replace_to_female_pronouns": "GenderPronounBias",
-    "replace_to_neutral_pronouns": "GenderPronounBias"
+    "replace_to_neutral_pronouns": "GenderPronounBias",
+    "dyslexia_word_swap": "Dyslexia_Word_Swap"
 }
 
 # @formatter:off
@@ -6940,6 +6942,52 @@ country_economic_dict = {
                             "Turkmenistan", "Tonga", "Turkey", "Türkiye", "Tuvalu", "St. Vincent and the Grenadines",
                             "Kosovo", "South Africa"]}
 
+
+#Dyslexia Word Dictnory
+
+dyslexia_map = {
+
+  "similar": 
+   { "of": "off",
+    "lose": "loose",
+    "than": "then",
+    "though": "through",
+    "well": "will",
+    "air": "hair"
+   },
+  "verbs": {
+    "would": "could",
+    "might": "would"
+  },
+  "homophones": {
+    "heir": "air",
+    "your": "you're",
+    "write": "right",
+    "four": "for",
+    "here": "hear",
+    "hi": "high",
+    "hour": "our",
+    "no": "know",
+    "height": "knight",
+    "knot": "not",
+    "see": "sea",
+    "since": "cents",
+    "some": "sum",
+    "ate": "eight",
+    "mate": "malt",
+    "merry": "marry",
+    "meet": "meat",
+    "son": "sun",
+    "sight": "site",
+    "one": "won",
+    "wait": "weight",
+    "wear": "where",
+    "bye": "by",
+    "by": "buy",
+    "to": "too",
+    "there": "their"
+  }
+}
 
 def get_substitution_names(values_list: List[List[str]]) -> List[str]:
     """ Helper function to get list of substitution names

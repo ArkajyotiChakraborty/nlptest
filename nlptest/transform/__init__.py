@@ -1,7 +1,7 @@
 from ..utils.custom_types import Result, Sample
 from .utils import (A2B_DICT, asian_names, black_names, country_economic_dict, create_terminology, female_pronouns,
                     get_substitution_names, hispanic_names, inter_racial_names, male_pronouns, native_american_names,
-                    neutral_pronouns, religion_wise_names, white_names)
+                    neutral_pronouns, religion_wise_names, white_names, dyslexia_map)
 from .robustness import BaseRobustness
 from .representation import BaseRepresentation
 from .bias import BaseBias
@@ -251,6 +251,7 @@ class RobustnessTestFactory(ITests):
             self.tests['british_to_american']['parameters'] = {}
             self.tests['british_to_american']['parameters']['accent_map'] = {
                 v: k for k, v in A2B_DICT.items()}
+         
 
         self._data_handler = data_handler
 
