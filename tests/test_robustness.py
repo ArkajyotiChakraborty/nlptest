@@ -1,7 +1,7 @@
 import unittest
 
 from nlptest.transform.robustness import *
-from nlptest.transform.utils import A2B_DICT, dyslexia_map
+from nlptest.transform.utils import A2B_DICT
 from nlptest.utils.custom_types import SequenceClassificationSample
 
 
@@ -27,6 +27,10 @@ class RobustnessTestCase(unittest.TestCase):
         self.gendered_sentences = [
             SequenceClassificationSample(original="He lives in the USA."),
             SequenceClassificationSample(original="He lives in the USA and his cat is black.")
+        ]
+        self.dyslexia_sentences = [
+            SequenceClassificationSample(original = "The Interim Cryogenic Propulsion Stage for the second flight of NASA’s Space Launch System (SLS) rocket arrived in Florida on July 28 for the final phase of production."),
+            SequenceClassificationSample(original = "Biden hails your relationship with Australia just days after new partnership drew ire from France.")
         ]
 
         self.labels = [
@@ -131,5 +135,10 @@ class RobustnessTestCase(unittest.TestCase):
         self.assertEqual(
             [len(sample.transformations) for sample in transformed_samples],
             [0, 1]
-        ) 
-
+        )
+    def test_dyslexia_swap(self) -> None:
+        transformed_samples = Dyslexia_Word_Swap.transform(sample_list=self.dyslexia_sentences)
+        for sample in transformed_samples:
+            self.assertEqual(len(sample.transformations), 1)
+            self.assertNotEqual(sample.test_case, sample.original)
+RobustnessTestCase.test_dyslexia_swap()

@@ -251,7 +251,6 @@ class RobustnessTestFactory(ITests):
             self.tests['british_to_american']['parameters'] = {}
             self.tests['british_to_american']['parameters']['accent_map'] = {
                 v: k for k, v in A2B_DICT.items()}
-         
 
         self._data_handler = data_handler
 

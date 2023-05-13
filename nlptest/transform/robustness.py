@@ -701,13 +701,17 @@ class Dyslexia_Word_Swap(BaseRobustness):
     
     @staticmethod
     def transform(sample_list: List[Sample]) -> List[Sample]:
+        """Converts the string by changing some similar words from the dictonary(dyslexia_map) and outputs a string. 
+           Args: sample_list: List of sentences to process.
+
+           Returns: Returns a converted string like words like write will get converted to right. 
+        """
 
         nlp = spacy.load("en_core_web_sm")
         swap_words = {
             k: v for dict in dyslexia_map.values() for k, v in dict.items()
         }
-        #print("......................")
-        #print(swap_words)
+
         swap_words_2 = {v: k for k, v in swap_words.items()}
 
         def generate(sentence:str):
@@ -715,29 +719,29 @@ class Dyslexia_Word_Swap(BaseRobustness):
             new_sentence = ""
             for word in nlp(sentence):
                 new_sentence += sentence[end_idx : word.idx]
-                #print(new_sentence)
 
                 new_word = word.text
                 key = word.text.lower()
                 if key in swap_words or key in swap_words_2:
                     if key in swap_words:
                         new_word = swap_words[key]
-                        #print(new_word)
                     if key in swap_words_2:
                         new_word = swap_words_2[key]
-                        #print(new_word)
+                    
                 new_sentence += new_word
 
                 end_idx = word.idx + len(word.text)
             new_sentence += sentence[end_idx:]
-
+            return new_sentence
+        
         for sample in sample_list:
             if "task" in sample.__annotations__:
                 sample.perturbed_question = generate(sample.original_question)
                 if "perturbed_context" in sample.__annotations__:
-                    sample.perturbed_context = generate(sample.original_question)
+                    sample.perturbed_context = generate(sample.original_context)
             else:
-                sample.test_case = generate(sample.original_question)
+                sample.test_case = generate(sample.original)
+                if sample.test_case==None: print(sample)
             sample.category = "robustness"
         return sample_list
 
